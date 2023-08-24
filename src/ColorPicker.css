@@ -1,0 +1,18 @@
+.color-picker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+
+    padding-bottom: 1em;
+}
+
+.color-history {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.color-history button {
+    border-radius: 0;
+    margin: 1px;
+}
