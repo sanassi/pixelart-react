@@ -1,7 +1,8 @@
 import useMousePosition from "./UseMousePosition.jsx";
 import {useRef} from "react";
+import PropTypes from "prop-types";
 
-export default function Canvas() {
+export default function Canvas(props) {
   const canvasRef = useRef(null);
   const [coords, handleCoords] = useMousePosition(true);
   const width = 900;
@@ -9,13 +10,15 @@ export default function Canvas() {
 
   const cellWidth = 20;
 
+  const drawingColor = props.drawingColor;
+
   function draw(event) {
     if (!canvasRef.current)
       return;
 
     handleCoords(event);
     const ctx = canvasRef.current.getContext("2d");
-    ctx.fillStyle = 'green';
+    ctx.fillStyle = drawingColor;
 
     let drawX = Math.floor(coords.x / cellWidth) * cellWidth;
     let drawY = Math.floor(coords.y / cellWidth) * cellWidth;
@@ -30,11 +33,15 @@ export default function Canvas() {
           ref={canvasRef}
           width={width}
           height={height}
-          onClick={(event) => {
+          onMouseDown={(event) => {
             handleCoords(event);
             draw(event);
           }}/>
       </div>
     </>
   )
+}
+
+Canvas.propTypes = {
+  drawingColor: PropTypes.string
 }

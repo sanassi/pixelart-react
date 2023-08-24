@@ -1,24 +1,9 @@
 import './ColorPicker.css'
-import {useState} from "react";
-import useColorState from "./UseColorState.jsx";
-export default function ColorPicker() {
-  let [color, setColor] = useColorState('#ff00ff');
-  let [colors, setColors] = useState([])
+import PropTypes from "prop-types";
 
-  let input = (<input type='color' value={color} onChange={
-    (e) => {
-      setColors([...colors, color]);
-      setColor(e.target.value);
-    }}/>)
-
-  let colorsDiv = colors.map((c) =>
-    <button key={c.toString()}
-            style={{backgroundColor : c}}
-            onClick={() => {
-              setColor(c);
-            }}
-    />)
-
+export default function ColorPicker(props) {
+   let input = props.input;
+   let colorsDiv = props.colorsDiv;
   return (
     <div className="color-picker">
       <label>Color</label>
@@ -28,4 +13,9 @@ export default function ColorPicker() {
       </div>
     </div>
   )
+}
+
+ColorPicker.propTypes = {
+   input: PropTypes.object,
+   colorsDiv: PropTypes.arrayOf(PropTypes.element)
 }
