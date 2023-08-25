@@ -5,6 +5,9 @@
     height: fit-content;
 
     padding-bottom: 0.5em;
+
+    margin-left: 1em;
+    border: white 1px solid;
 }
 
 .color-history {

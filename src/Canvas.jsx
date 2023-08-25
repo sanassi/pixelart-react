@@ -1,8 +1,9 @@
 import useMousePosition from "./UseMousePosition.jsx";
-import {useRef} from "react";
 import PropTypes from "prop-types";
+import {useRef} from "react";
 
 export default function Canvas(props) {
+
    const canvasRef = useRef(null);
    const [coords, handleCoords] = useMousePosition(true);
    const width = 900;
@@ -11,7 +12,6 @@ export default function Canvas(props) {
    const cellWidth = 20;
 
    const drawingColor = props.drawingColor;
-
    function draw(event) {
       if (!canvasRef.current)
          return;
@@ -34,7 +34,6 @@ export default function Canvas(props) {
                width={width}
                height={height}
                onMouseDown={(event) => {
-                  handleCoords(event);
                   draw(event);
                }}/>
          </div>

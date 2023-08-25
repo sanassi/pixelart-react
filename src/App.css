@@ -3,7 +3,6 @@
     margin: 0 auto;
     padding: 2rem;
     text-align: center;
-    font-family: "JetBrains Mono", sans-serif;
 }
 
 canvas {
@@ -13,9 +12,4 @@ canvas {
 .app {
     display: flex;
     flex-direction: row;
-}
-
-.color-picker {
-    margin: 1em;
-    border: white 1px solid;
 }
