@@ -1,20 +1,21 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  font-family: "JetBrains Mono", sans-serif;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    font-family: "JetBrains Mono", sans-serif;
 }
 
 canvas {
-  border: white 1px solid;
+    border: white 1px solid;
 }
 
 .app {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
+
 .color-picker {
-  margin: 1em;
-  border: white 1px solid;
+    margin: 1em;
+    border: white 1px solid;
 }

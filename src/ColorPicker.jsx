@@ -14,28 +14,28 @@ export default function ColorPicker(props) {
 
    let colorsDiv = history.map((c) =>
       <button key={c.toString()}
-              style={{backgroundColor : c}}
+              style={{backgroundColor: c}}
               onClick={() => {
                  setColor(c);
               }}
       />)
 
-   const clearHistoryButton = ( <button className='clearHistoryButton' onClick={() => {
+   const clearHistoryButton = (<button className='clearHistoryButton' onClick={() => {
       setHistory([]);
    }}>
       Clear
    </button>)
 
-  return (
-    <div className="color-picker">
-      <label>Color</label>
-      {input}
-      <div className="color-history">
-        {colorsDiv}
+   return (
+      <div className="color-picker">
+         <label>Color</label>
+         {input}
+         <div className="color-history">
+            {colorsDiv}
+         </div>
+         {clearHistoryButton}
       </div>
-       {clearHistoryButton}
-    </div>
-  )
+   )
 }
 
 ColorPicker.propTypes = {
