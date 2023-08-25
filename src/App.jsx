@@ -12,11 +12,21 @@ function App() {
    const appState = {
       penWidth: 1,
       penColor: '#ffaaff',
-      mode: 'pen'
+      mode: 'pen',
+      backgroundColor: '#242424',
+      width: 900,
+      height: 900,
+      cellWidth: 20,
+      grid: []
    };
+
+   appState.grid = Array((appState.width / appState.cellWidth) * (appState.height / appState.cellWidth)).fill('#ffffff00');
+
+   console.log(appState.grid.length);
 
    const [color, setColor] = useColorState(appState.penColor);
    const [history, setHistory] = useState([]);
+
    return (
       <AppContext.Provider value={appState}>
          <div className="app">
