@@ -6,7 +6,7 @@ export default function Canvas(props) {
   const canvasRef = useRef(null);
   const [coords, handleCoords] = useMousePosition(true);
   const width = 900;
-  const height = 600;
+  const height = 900;
 
   const cellWidth = 20;
 

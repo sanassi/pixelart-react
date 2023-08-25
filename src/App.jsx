@@ -5,7 +5,6 @@ import useColorState from "./UseColorState.jsx";
 import {useState} from "react";
 
 function App() {
-
    let [color, setColor] = useColorState('#ff00ff');
    let [colors, setColors] = useState([])
 

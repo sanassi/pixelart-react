@@ -11,6 +11,9 @@ export default function ColorPicker(props) {
       <div className="color-history">
         {colorsDiv}
       </div>
+       <button className="clear-history-button">
+          Clear
+       </button>
     </div>
   )
 }
