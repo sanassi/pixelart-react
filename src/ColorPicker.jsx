@@ -2,8 +2,30 @@ import './ColorPicker.css'
 import PropTypes from "prop-types";
 
 export default function ColorPicker(props) {
-   let input = props.input;
-   let colorsDiv = props.colorsDiv;
+
+   const [color, setColor] = props.colorState;
+   const [history, setHistory] = props.historyState;
+
+   let input = (<input type='color' value={color} onChange={
+      (e) => {
+         setHistory([...history, color]);
+         setColor(e.target.value);
+      }}/>)
+
+   let colorsDiv = history.map((c) =>
+      <button key={c.toString()}
+              style={{backgroundColor : c}}
+              onClick={() => {
+                 setColor(c);
+              }}
+      />)
+
+   const clearHistoryButton = ( <button className='clearHistoryButton' onClick={() => {
+      setHistory([]);
+   }}>
+      Clear
+   </button>)
+
   return (
     <div className="color-picker">
       <label>Color</label>
@@ -11,14 +33,12 @@ export default function ColorPicker(props) {
       <div className="color-history">
         {colorsDiv}
       </div>
-       <button className="clear-history-button">
-          Clear
-       </button>
+       {clearHistoryButton}
     </div>
   )
 }
 
 ColorPicker.propTypes = {
-   input: PropTypes.object,
-   colorsDiv: PropTypes.arrayOf(PropTypes.element)
+   colorState: PropTypes.array,
+   historyState: PropTypes.array
 }

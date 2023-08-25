@@ -5,29 +5,13 @@ import useColorState from "./UseColorState.jsx";
 import {useState} from "react";
 
 function App() {
-   let [color, setColor] = useColorState('#ff00ff');
-   let [colors, setColors] = useState([])
-
-   let input = (<input type='color' value={color} onChange={
-      (e) => {
-         setColors([...colors, color]);
-         setColor(e.target.value);
-      }}/>)
-
-   let colorsDiv = colors.map((c) =>
-      <button key={c.toString()}
-              style={{backgroundColor : c}}
-              onClick={() => {
-                 setColor(c);
-              }}
-      />)
-
+   const [color, setColor] = useColorState('#ffff00');
+   const [history, setHistory] = useState([]);
   return (
     <>
       <div className="app">
         <Canvas drawingColor={color}/>
-        <ColorPicker colorsDiv={colorsDiv}
-                     input={input}/>
+        <ColorPicker colorState={[color, setColor]} historyState={[history, setHistory]}/>
       </div>
     </>
   )
