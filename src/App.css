@@ -9,7 +9,7 @@ canvas {
     border: white 1px solid;
 }
 
-.app {
+.app-top {
     display: flex;
     flex-direction: row;
 }

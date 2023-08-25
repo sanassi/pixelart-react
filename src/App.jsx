@@ -4,6 +4,7 @@ import ColorPicker from "./ColorPicker.jsx";
 import Tools from './Tools.jsx'
 import useColorState from "./UseColorState.jsx";
 import {createContext, useState} from "react";
+import SaveButton from "./SaveButton.jsx";
 
 export const AppContext = createContext(null);
 
@@ -14,15 +15,13 @@ function App() {
       penColor: '#ffaaff',
       mode: 'pen',
       backgroundColor: '#242424',
-      width: 900,
-      height: 900,
+      nbCellWidth: 45,
+      nbCellHeight: 45,
       cellWidth: 20,
       grid: []
    };
 
-   appState.grid = Array((appState.width / appState.cellWidth) * (appState.height / appState.cellWidth)).fill('#ffffff00');
-
-   console.log(appState.grid.length);
+   appState.grid = Array(appState.nbCellHeight * appState.nbCellWidth).fill('#ffffff00');
 
    const [color, setColor] = useColorState(appState.penColor);
    const [history, setHistory] = useState([]);
@@ -30,9 +29,14 @@ function App() {
    return (
       <AppContext.Provider value={appState}>
          <div className="app">
-            <Tools/>
-            <Canvas drawingColor={color}/>
-            <ColorPicker colorState={[color, setColor]} historyState={[history, setHistory]}/>
+            <div className="app-top">
+               <Tools/>
+               <Canvas drawingColor={color}/>
+               <ColorPicker colorState={[color, setColor]} historyState={[history, setHistory]}/>
+            </div>
+            <div className="app-footer">
+               <SaveButton/>
+            </div>
          </div>
       </AppContext.Provider>
    )

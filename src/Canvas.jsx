@@ -9,8 +9,8 @@ export default function Canvas(props) {
 
    const canvasRef = useRef(null);
    const [coords, handleCoords] = useMousePosition(true);
-   const width = appState.width;
-   const height = appState.height;
+   const canvasWidth = appState.nbCellWidth * appState.cellWidth;
+   const canvasHeight = appState.nbCellHeight * appState.cellWidth;
 
    const cellWidth = appState.cellWidth;
    const drawingColor = props.drawingColor;
@@ -31,8 +31,13 @@ export default function Canvas(props) {
             break;
       }
 
-      let drawX = Math.floor(coords.x / cellWidth) * cellWidth;
-      let drawY = Math.floor(coords.y / cellWidth) * cellWidth;
+      let gridX = Math.floor(coords.x / cellWidth);
+      let gridY = Math.floor(coords.y / cellWidth);
+
+      appState.grid[gridY * appState.nbCellWidth + gridX] = drawingColor;
+
+      let drawX = gridX * cellWidth;
+      let drawY = gridY * cellWidth;
 
       ctx?.fillRect(drawX, drawY, cellWidth, cellWidth);
    }
@@ -42,8 +47,8 @@ export default function Canvas(props) {
          <div>
             <canvas
                ref={canvasRef}
-               width={width}
-               height={height}
+               width={canvasWidth}
+               height={canvasHeight}
                onMouseDown={(event) => {
                   draw(event);
                }}/>
