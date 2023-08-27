@@ -25,20 +25,24 @@ export default function ColorPicker(props) {
               }}
       />)
 
-   const clearHistoryButton = (<button className='clearHistoryButton' onClick={() => {
-      setHistory([]);
-   }}>
-      Clear
-   </button>)
+   const resetHistoryButton = (
+      <button className='clearHistoryButton'
+              onClick={() => {
+                 setHistory([]);
+              }}>
+         Reset
+      </button>
+   )
 
    return (
       <div className="color-picker">
          <label>Color</label>
          {input}
+         <hr style={{width: '75%'}}/>
          <div className="color-history">
             {colorsDiv}
          </div>
-         {clearHistoryButton}
+         {resetHistoryButton}
       </div>
    )
 }

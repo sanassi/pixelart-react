@@ -11,10 +11,13 @@ export const AppContext = createContext(null);
 function App() {
 
    const appState = {
+      canvasRef: null,
       penWidth: 1,
       penColor: '#ffaaff',
       mode: 'pen',
+      drawing: false,
       backgroundColor: '#242424',
+      transparentColor: '#ffffff00',
       nbCellWidth: 45,
       nbCellHeight: 45,
       cellWidth: 20,
@@ -32,7 +35,8 @@ function App() {
             <div className="app-top">
                <Tools/>
                <Canvas drawingColor={color}/>
-               <ColorPicker colorState={[color, setColor]} historyState={[history, setHistory]}/>
+               <ColorPicker colorState={[color, setColor]}
+                            historyState={[history, setHistory]}/>
             </div>
             <div className="app-footer">
                <SaveButton/>

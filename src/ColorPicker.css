@@ -8,11 +8,26 @@
 
     margin-left: 1em;
     border: white 1px solid;
+
+    width: 10em;
+}
+
+input[type='color'] {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+    width: 10em;
+    height: 3em;
 }
 
 .color-history {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    padding-bottom: 0.5em;
 }
 
 .color-history button {
