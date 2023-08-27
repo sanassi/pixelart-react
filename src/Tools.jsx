@@ -30,11 +30,11 @@ export default function Tools() {
             appState.mode = 'eraser';
          }}>Eraser
          </button>
-         <button className="bucket-tool-button" onClick={() => {
+         {/*<button className="bucket-tool-button" onClick={() => {
             appState.mode = 'bucket';
          }}>
             Bucket
-         </button>
+         </button>*/}
          <button className="clear-tool-button"
                  onClick={clearCanvas}>
             Clear

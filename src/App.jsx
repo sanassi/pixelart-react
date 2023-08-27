@@ -13,13 +13,13 @@ function App() {
    const appState = {
       canvasRef: null,
       penWidth: 1,
-      penColor: '#ffaaff',
+      penColor: '#5fee0c',
       mode: 'pen',
       drawing: false,
       backgroundColor: '#242424',
       transparentColor: '#ffffff00',
-      nbCellWidth: 45,
-      nbCellHeight: 45,
+      nbCellWidth: 40,
+      nbCellHeight: 40,
       cellWidth: 20,
       grid: []
    };

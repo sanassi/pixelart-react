@@ -15,7 +15,6 @@ export default function Canvas(props) {
    const cellWidth = appState.cellWidth;
    const drawingColor = props.drawingColor;
 
-   /*
    function drawCell(x, y) {
       if (!canvasRef.current)
          return;
@@ -23,8 +22,6 @@ export default function Canvas(props) {
       const ctx = canvasRef.current.getContext("2d");
       ctx?.fillRect(x, y, cellWidth, cellWidth);
    }
-   */
-   /*
    function bucketDraw() {
       let x = Math.floor(coords.x / cellWidth);
       let y = Math.floor(coords.y / cellWidth);
@@ -32,45 +29,41 @@ export default function Canvas(props) {
       let grid = appState.grid;
 
       const toReplace = grid[y * appState.nbCellWidth + x];
+
+      if (toReplace === drawingColor)
+         return;
+
       grid[y * appState.nbCellWidth + x] = drawingColor
 
       let q = [{x, y}];
-
-      let count = 0;
 
       console.log(drawingColor)
       console.log(toReplace)
 
       while (q.length !== 0) {
          let pop = q.shift();
-         grid[pop.y * appState.nbCellWidth + pop.x] = drawingColor;
          drawCell(pop.x * cellWidth, pop.y * cellWidth);
 
-         for (let i = -1; i <= 1; i++) {
-            for (let j = -1; j <= 1; j++) {
-               if (i === j && i === 0)
-                  continue;
+         if (pop.x - 1 >= 0 && grid[pop.y * appState.nbCellWidth + (pop.x - 1)] === toReplace) {
+            grid[pop.y * appState.nbCellWidth + (pop.x - 1)] = drawingColor;
+            q.push({x: pop.x - 1, y: pop.y});
+         }
 
-               if (pop.x + i < 0 ||
-                  pop.x + i >= appState.nbCellWidth ||
-                  pop.y + j < 0 ||
-                  pop.y + j >= appState.nbCellWidth ||
-                  grid[(pop.y + j) * appState.nbCellWidth + (pop.x + i)] !== toReplace)
-                  continue;
+         if (pop.x + 1 < appState.nbCellWidth && grid[pop.y * appState.nbCellWidth + (pop.x + 1)] === toReplace) {
+            grid[pop.y * appState.nbCellWidth + (pop.x + 1)] = drawingColor;
+            q.push({x: pop.x + 1, y: pop.y});
+         }
 
-               grid[(pop.y + j) * appState.nbCellWidth + (pop.x + i)] = drawingColor;
+         if (pop.y - 1 >= 0 && grid[(pop.y - 1) * appState.nbCellWidth + pop.x] === toReplace) {
+            grid[(pop.y - 1) * appState.nbCellWidth + pop.x] = drawingColor;
+            q.push({x: pop.x, y: pop.y - 1});
+         }
 
-               console.log(grid[(pop.y + j) * appState.nbCellWidth + (pop.x + i)]);
-               console.log({x: pop.x + i, y: pop.y + j});
-               //q.push({x: pop.x + i, y: pop.y + j});
-               count += 1;
-            }
+         if (pop.y + 1 < appState.nbCellWidth && grid[(pop.y + 1) * appState.nbCellWidth + pop.x] === toReplace) {
+            grid[(pop.y + 1) * appState.nbCellWidth + pop.x] = drawingColor;
+            q.push({x: pop.x, y: pop.y + 1});
          }
       }
-
-      console.log(count);
-
-
       //for (let i = 0; i < appState.nbCellWidth; i++) {
       //   for (let j = 0; j < appState.nbCellWidth; j++) {
       //      console.log(appState.grid[i * appState.nbCellWidth + j]);
@@ -78,7 +71,6 @@ export default function Canvas(props) {
       //}
 
    }
-   */
 
    function draw(event) {
       if (!canvasRef.current)
@@ -120,6 +112,7 @@ export default function Canvas(props) {
       <>
          <div>
             <canvas
+               id='ui-layer'
                ref={canvasRef}
                width={canvasWidth}
                height={canvasHeight}
