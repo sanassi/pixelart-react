@@ -120,12 +120,15 @@ export default function Canvas(props) {
                width={canvasWidth}
                height={canvasHeight}
                onMouseDown={(event) => {
-                  if (appState.mode === 'pen' || appState.mode === 'eraser') {
-                     appState.drawing = true;
-                     draw(event);
-                  }
-                  if (appState.mode === 'bucket') {
-                     bucketDraw();
+                  switch (appState.mode) {
+                     case 'pen':
+                     case 'eraser':
+                        appState.drawing = true;
+                        draw(event);
+                        break;
+                     case 'bucket':
+                        bucketDraw();
+                        break;
                   }
                }}
                onMouseMove={(event) => {
