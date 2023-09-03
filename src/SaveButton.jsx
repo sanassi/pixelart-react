@@ -18,8 +18,6 @@ export default function SaveButton() {
 
       let newCtx = newCanvas.getContext('2d');
 
-      console.log(appState.grid);
-
       for (let i = 0; i < appState.nbCellHeight; i++) {
          for (let j = 0; j < appState.nbCellWidth; j++) {
             let prevCtxFill = newCtx.fillStyle;

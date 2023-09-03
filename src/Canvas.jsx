@@ -125,7 +125,6 @@ export default function Canvas(props) {
                      draw(event);
                   }
                   if (appState.mode === 'bucket') {
-                     console.log('bucket');
                      bucketDraw();
                   }
                }}
