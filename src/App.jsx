@@ -10,6 +10,9 @@ export const AppContext = createContext(null);
 
 function App() {
 
+   let nbCellWidth = 40;
+   let nbCellHeight = 40;
+
    const appState = {
       canvasRef: null,
       penWidth: 1,
@@ -18,16 +21,17 @@ function App() {
       drawing: false,
       backgroundColor: '#242424',
       transparentColor: '#ffffff00',
-      nbCellWidth: 40,
-      nbCellHeight: 40,
+      nbCellWidth: nbCellWidth,
+      nbCellHeight: nbCellHeight,
       cellWidth: 20,
-      grid: []
+      grid: [],
    };
-
-   appState.grid = Array(appState.nbCellHeight * appState.nbCellWidth).fill('#ffffff00');
 
    const [color, setColor] = useColorState(appState.penColor);
    const [history, setHistory] = useState([]);
+   const [grid] = useState((Array(nbCellHeight * nbCellWidth).fill('#ffffff00')));
+
+   appState.grid = grid;
 
    return (
       <AppContext.Provider value={appState}>

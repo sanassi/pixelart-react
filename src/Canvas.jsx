@@ -8,6 +8,8 @@ export default function Canvas(props) {
    const appState = useContext(AppContext);
 
    const canvasRef = useRef(null);
+
+   appState.canvasRef = canvasRef;
    const [coords, handleCoords] = useMousePosition(true);
    const canvasWidth = appState.nbCellWidth * appState.cellWidth;
    const canvasHeight = appState.nbCellHeight * appState.cellWidth;
@@ -64,19 +66,13 @@ export default function Canvas(props) {
             q.push({x: pop.x, y: pop.y + 1});
          }
       }
-      //for (let i = 0; i < appState.nbCellWidth; i++) {
-      //   for (let j = 0; j < appState.nbCellWidth; j++) {
-      //      console.log(appState.grid[i * appState.nbCellWidth + j]);
-      //   }
-      //}
-
    }
 
    function draw(event) {
       if (!canvasRef.current)
          return;
 
-      appState.canvasRef = canvasRef;
+      //appState.canvasRef = canvasRef;
 
       handleCoords(event);
       const ctx = canvasRef.current.getContext("2d");
@@ -117,7 +113,7 @@ export default function Canvas(props) {
                width={canvasWidth}
                height={canvasHeight}
                onMouseDown={(event) => {
-                  if (appState.mode === 'pen' || appState.mode === 'eraser' || appState.mode === 'bucket') {
+                  if (appState.mode === 'pen' || appState.mode === 'eraser') {
                      appState.drawing = true;
                      draw(event);
                   }
