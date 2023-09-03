@@ -25,6 +25,14 @@ export default function Canvas(props) {
       ctx?.fillRect(x, y, cellWidth, cellWidth);
    }
    function bucketDraw() {
+      if (!canvasRef.current)
+         return;
+
+      const ctx = canvasRef.current.getContext("2d");
+      const prevFill = ctx.fillStyle;
+
+      ctx.fillStyle = drawingColor;
+
       let x = Math.floor(coords.x / cellWidth);
       let y = Math.floor(coords.y / cellWidth);
 
@@ -39,9 +47,10 @@ export default function Canvas(props) {
 
       let q = [{x, y}];
 
-      console.log(drawingColor)
-      console.log(toReplace)
+      //console.log(drawingColor)
+      //console.log(toReplace)
 
+      //TODO: replace with loop
       while (q.length !== 0) {
          let pop = q.shift();
          drawCell(pop.x * cellWidth, pop.y * cellWidth);
@@ -66,6 +75,8 @@ export default function Canvas(props) {
             q.push({x: pop.x, y: pop.y + 1});
          }
       }
+
+      ctx.fillStyle = prevFill;
    }
 
    function draw(event) {
@@ -90,10 +101,6 @@ export default function Canvas(props) {
             ctx.fillStyle = appState.backgroundColor;
             gridColor = appState.transparentColor;
             break;
-         case 'bucket':
-            ctx.fillStyle = drawingColor;
-            bucketDraw();
-            break;
       }
 
       appState.grid[gridY * appState.nbCellWidth + gridX] = gridColor;
@@ -116,6 +123,10 @@ export default function Canvas(props) {
                   if (appState.mode === 'pen' || appState.mode === 'eraser') {
                      appState.drawing = true;
                      draw(event);
+                  }
+                  if (appState.mode === 'bucket') {
+                     console.log('bucket');
+                     bucketDraw();
                   }
                }}
                onMouseMove={(event) => {
