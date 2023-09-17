@@ -62,13 +62,13 @@ export default function Canvas(props) {
             const newX = pop.x + dir.dx;
             const newY = pop.y + dir.dy;
 
-            if (
-               newX >= 0 &&
+            const canBeFilled = newX >= 0 &&
                newX < appState.nbCellWidth &&
                newY >= 0 &&
                newY < appState.nbCellWidth &&
-               grid[newY * appState.nbCellWidth + newX] === toReplace
-            ) {
+               grid[newY * appState.nbCellWidth + newX] === toReplace;
+
+            if (canBeFilled) {
                grid[newY * appState.nbCellWidth + newX] = drawingColor;
                q.push({ x: newX, y: newY });
             }
@@ -78,15 +78,31 @@ export default function Canvas(props) {
       ctx.fillStyle = prevFill;
    }
 
+   function drawOnGridAndBoard(x, y, color) {
+      let width = Math.floor(appState.penWidth / 2);
+      const ctx = canvasRef.current.getContext("2d");
+
+      for (let i = -width; i <= width; i++) {
+         for (let j = -width; j <= width; j++) {
+            if (x + i >= 0 && x + i < appState.nbCellWidth
+               && y + j >= 0 && y + j < appState.nbCellWidth)
+            {
+               appState.grid[(y + j) * appState.nbCellWidth + (x + i)] = color;
+
+               let drawX = (x + i) * cellWidth;
+               let drawY = (y + j) * cellWidth;
+
+               ctx?.fillRect(drawX, drawY, cellWidth, cellWidth);
+            }
+         }
+      }
+   }
+
    function draw(event) {
       if (!canvasRef.current)
          return;
 
-      handleCoords(event);
       const ctx = canvasRef.current.getContext("2d");
-
-      let gridX = Math.floor(coords.x / cellWidth);
-      let gridY = Math.floor(coords.y / cellWidth);
 
       let gridColor = drawingColor;
 
@@ -100,12 +116,22 @@ export default function Canvas(props) {
             break;
       }
 
+      handleCoords(event);
+
+      let gridX = Math.floor(coords.x / cellWidth);
+      let gridY = Math.floor(coords.y / cellWidth);
+
+      drawOnGridAndBoard(gridX, gridY, gridColor);
+
+      /*
       appState.grid[gridY * appState.nbCellWidth + gridX] = gridColor;
 
       let drawX = gridX * cellWidth;
       let drawY = gridY * cellWidth;
 
       ctx?.fillRect(drawX, drawY, cellWidth, cellWidth);
+
+       */
    }
 
    return (

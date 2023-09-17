@@ -17,8 +17,8 @@ export default function ColorPicker(props) {
          appState.penColor = color;
       }}/>)
 
-   let colorsDiv = history.map((c) =>
-      <button key={c.toString()}
+   let colorsDiv = history.map((c, index) =>
+      <button key={c.toString() + index.toString()}
               style={{backgroundColor: c}}
               onClick={() => {
                  setColor(c);
