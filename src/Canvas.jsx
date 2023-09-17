@@ -47,32 +47,31 @@ export default function Canvas(props) {
 
       let q = [{x, y}];
 
-      //console.log(drawingColor)
-      //console.log(toReplace)
-
-      //TODO: replace with loop
       while (q.length !== 0) {
          let pop = q.shift();
          drawCell(pop.x * cellWidth, pop.y * cellWidth);
 
-         if (pop.x - 1 >= 0 && grid[pop.y * appState.nbCellWidth + (pop.x - 1)] === toReplace) {
-            grid[pop.y * appState.nbCellWidth + (pop.x - 1)] = drawingColor;
-            q.push({x: pop.x - 1, y: pop.y});
-         }
+         const directions = [
+            { dx: -1, dy: 0 },
+            { dx: 1, dy: 0 },
+            { dx: 0, dy: -1 },
+            { dx: 0, dy: 1 },
+         ];
 
-         if (pop.x + 1 < appState.nbCellWidth && grid[pop.y * appState.nbCellWidth + (pop.x + 1)] === toReplace) {
-            grid[pop.y * appState.nbCellWidth + (pop.x + 1)] = drawingColor;
-            q.push({x: pop.x + 1, y: pop.y});
-         }
+         for (const dir of directions) {
+            const newX = pop.x + dir.dx;
+            const newY = pop.y + dir.dy;
 
-         if (pop.y - 1 >= 0 && grid[(pop.y - 1) * appState.nbCellWidth + pop.x] === toReplace) {
-            grid[(pop.y - 1) * appState.nbCellWidth + pop.x] = drawingColor;
-            q.push({x: pop.x, y: pop.y - 1});
-         }
-
-         if (pop.y + 1 < appState.nbCellWidth && grid[(pop.y + 1) * appState.nbCellWidth + pop.x] === toReplace) {
-            grid[(pop.y + 1) * appState.nbCellWidth + pop.x] = drawingColor;
-            q.push({x: pop.x, y: pop.y + 1});
+            if (
+               newX >= 0 &&
+               newX < appState.nbCellWidth &&
+               newY >= 0 &&
+               newY < appState.nbCellWidth &&
+               grid[newY * appState.nbCellWidth + newX] === toReplace
+            ) {
+               grid[newY * appState.nbCellWidth + newX] = drawingColor;
+               q.push({ x: newX, y: newY });
+            }
          }
       }
 
@@ -82,8 +81,6 @@ export default function Canvas(props) {
    function draw(event) {
       if (!canvasRef.current)
          return;
-
-      //appState.canvasRef = canvasRef;
 
       handleCoords(event);
       const ctx = canvasRef.current.getContext("2d");
