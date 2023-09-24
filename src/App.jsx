@@ -1,10 +1,10 @@
 import './App.css'
-import Canvas from "./Canvas.jsx";
 import ColorPicker from "./ColorPicker.jsx";
 import Tools from './Tools.jsx'
 import useColorState from "./UseColorState.jsx";
 import {createContext, useState} from "react";
 import SaveButton from "./SaveButton.jsx";
+import TabPanel from "./TabPanel.jsx";
 
 export const AppContext = createContext(null);
 
@@ -38,7 +38,8 @@ function App() {
          <div className="app">
             <div className="app-top">
                <Tools/>
-               <Canvas drawingColor={color}/>
+               <TabPanel drawingColor={color}/>
+               {/*<Canvas drawingColor={color}/>*/}
                <ColorPicker colorState={[color, setColor]}
                             historyState={[history, setHistory]}/>
             </div>

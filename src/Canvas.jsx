@@ -36,7 +36,7 @@ export default function Canvas(props) {
       let x = Math.floor(coords.x / cellWidth);
       let y = Math.floor(coords.y / cellWidth);
 
-      let grid = appState.grid;
+      let grid = props.grid;
 
       const toReplace = grid[y * appState.nbCellWidth + x];
 
@@ -87,7 +87,7 @@ export default function Canvas(props) {
             if (x + i >= 0 && x + i < appState.nbCellWidth
                && y + j >= 0 && y + j < appState.nbCellWidth)
             {
-               appState.grid[(y + j) * appState.nbCellWidth + (x + i)] = color;
+               props.grid[(y + j) * appState.nbCellWidth + (x + i)] = color;
 
                let drawX = (x + i) * cellWidth;
                let drawY = (y + j) * cellWidth;
@@ -124,7 +124,7 @@ export default function Canvas(props) {
       drawOnGridAndBoard(gridX, gridY, gridColor);
 
       /*
-      appState.grid[gridY * appState.nbCellWidth + gridX] = gridColor;
+      props.grid[gridY * appState.nbCellWidth + gridX] = gridColor;
 
       let drawX = gridX * cellWidth;
       let drawY = gridY * cellWidth;
@@ -173,5 +173,6 @@ export default function Canvas(props) {
 }
 
 Canvas.propTypes = {
-   drawingColor: PropTypes.string
+   drawingColor: PropTypes.string,
+   grid: Array.of(PropTypes.string)
 }
