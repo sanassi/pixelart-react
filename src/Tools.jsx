@@ -2,6 +2,7 @@ import './Tools.css'
 import {useContext} from "react";
 import {AppContext} from "./App.jsx";
 import PenSize from "./PenSize.jsx";
+import UndoRedo from "./UndoRedo.jsx";
 
 export default function Tools() {
    const appState = useContext(AppContext);
@@ -28,6 +29,7 @@ export default function Tools() {
          }}>Pen
          </button>
          <PenSize/>
+          <UndoRedo/>
          <hr style={{width: '80%'}}/>
          <button className="eraser-tool-button" onClick={() => {
             appState.mode = 'eraser';
