@@ -39,7 +39,6 @@ function App() {
             <div className="app-top">
                <Tools/>
                <TabPanel drawingColor={color}/>
-               {/*<Canvas drawingColor={color}/>*/}
                <ColorPicker colorState={[color, setColor]}
                             historyState={[history, setHistory]}/>
             </div>

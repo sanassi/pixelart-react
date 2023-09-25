@@ -31,14 +31,14 @@ export default function TabPanel(props) {
             tabs.push(<Tab />);
             setPaneHeader([
                ...paneHeader,
-               <TabButton tabName="untitled" setActiveTab={setActiveTab} />,
+               <TabButton tabName="untitled"
+                          setActiveTab={setActiveTab} />,
             ]);
          }}
       >
          &#xFF0B;
       </button>
    );
-
 
    return (
       <div>

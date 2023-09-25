@@ -4,7 +4,6 @@ import {useContext, useRef} from "react";
 import {AppContext} from "./App.jsx";
 
 export default function Canvas(props) {
-
    const appState = useContext(AppContext);
 
    const canvasRef = useRef(null);

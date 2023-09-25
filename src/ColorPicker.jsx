@@ -4,7 +4,6 @@ import {useContext} from "react";
 import {AppContext} from "./App.jsx";
 
 export default function ColorPicker(props) {
-
    const [color, setColor] = props.colorState;
    const [history, setHistory] = props.historyState;
 
