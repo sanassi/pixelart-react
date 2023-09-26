@@ -10,7 +10,8 @@ export default function Tab(props) {
       .fill('#ffffff00')));
 
    return (
-      <div className="tab"
+      <div key={props.tabKey}
+           className="tab"
            hidden={props.hidden}>
          <Canvas drawingColor={props.drawingColor}
                  grid={grid}/>
@@ -19,6 +20,7 @@ export default function Tab(props) {
 }
 
 Tab.propTypes = {
+   tabKey: PropTypes.string,
    tabName: PropTypes.string,
    hidden: PropTypes.bool,
    drawingColor: PropTypes.string,

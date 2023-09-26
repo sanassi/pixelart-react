@@ -1,39 +1,34 @@
 import Tab from "./Tab.jsx";
 import './TabPanel.css';
-import {useContext, useState} from "react";
+import {useContext, useId, useState} from "react";
 import TabButton from "./TabButton.jsx";
 import {AppContext} from "./App.jsx";
 import PropTypes from "prop-types";
 
+const uniqueId = () => parseInt(Date.now() * Math.random()).toString();
+
+const initialTabs = [
+    { tabKey: uniqueId(), tabName: "Hello" },
+    { tabKey: uniqueId(), tabName: "Yellow" },
+]
+
 export default function TabPanel(props) {
    const appState = useContext(AppContext);
 
-   const [activeTab, setActiveTab] = useState('Hello');
+   const [activeTab, setActiveTab] = useState(initialTabs[0].tabKey);
+   const [tabs, setTabs] = useState(initialTabs);
 
-   const tabs = ['Hello', 'yooo', 'hola'].map(name => {
-      return (
-         <Tab hidden={activeTab !== name}
-           drawingColor={props.drawingColor}
-           tabName={name}/>
-   )});
-
-   const [paneHeader, setPaneHeader] = useState(
-      tabs.map((tab) => (
-         <TabButton tabName={tab.props.tabName} setActiveTab={setActiveTab} />
-      ))
-   );
+    const deleteTab = (tabId) => {
+        setTabs(tabs.filter(t => t.tabKey !== tabId));
+    }
 
    const newTabButton = (
       <button
          className="add-tab-button"
          type="button"
          onClick={() => {
-            tabs.push(<Tab />);
-            setPaneHeader([
-               ...paneHeader,
-               <TabButton tabName="untitled"
-                          setActiveTab={setActiveTab} />,
-            ]);
+             let id = uniqueId();
+             setTabs([...tabs, { tabKey: id, tabName: "untitled" }])
          }}
       >
          &#xFF0B;
@@ -43,10 +38,24 @@ export default function TabPanel(props) {
    return (
       <div>
          <div className="pane-header">
-            {paneHeader}
+            {
+                tabs.map((tab) => {
+                return <TabButton tabName={tab.tabName}
+                                  tabKey={tab.tabKey}
+                                  setActiveTab={setActiveTab}
+                                  onClose={deleteTab}/>
+            })}
             {newTabButton}
          </div>
-         {tabs}
+         {
+             tabs.map(tab => {
+             return (
+                 <Tab tabName={tab.tabName}
+                          tabKey={tab.tabKey}
+                          hidden={activeTab !== tab.tabKey}
+                      drawingColor={props.drawingColor}
+                 />)
+         })}
       </div>
    );
 }
