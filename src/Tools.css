@@ -3,3 +3,7 @@
     flex-direction: column;
     margin-right: 1em;
 }
+
+.tools button:hover {
+    border-color: #646cff;
+}

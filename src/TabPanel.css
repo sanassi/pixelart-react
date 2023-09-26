@@ -1,6 +1,15 @@
+.tab-panel {
+    min-height: 800px;
+    min-width: 800px;
+}
+
 .pane-header {
     display: flex;
     flex-direction: row;
+    max-width: 800px; /* store the max width in a variable instead */
+    margin-right: 0;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 .pane-header button {

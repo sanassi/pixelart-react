@@ -135,7 +135,7 @@ export default function Canvas(props) {
 
    return (
       <>
-         <div>
+         <div id='drawing-area'>
             <canvas
                id='ui-layer'
                ref={canvasRef}

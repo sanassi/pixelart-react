@@ -34,3 +34,7 @@ input[type='color'] {
     border-radius: 0;
     margin: 1px;
 }
+
+.color-picker button:hover {
+    border-color: #646cff;
+}

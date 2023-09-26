@@ -27,8 +27,7 @@ export default function TabPanel(props) {
          className="add-tab-button"
          type="button"
          onClick={() => {
-             let id = uniqueId();
-             setTabs([...tabs, { tabKey: id, tabName: "untitled" }])
+             setTabs([...tabs, { tabKey: uniqueId(), tabName: "untitled" }])
          }}
       >
          &#xFF0B;
@@ -36,7 +35,7 @@ export default function TabPanel(props) {
    );
 
    return (
-      <div>
+      <div className="tab-panel">
          <div className="pane-header">
             {
                 tabs.map((tab) => {

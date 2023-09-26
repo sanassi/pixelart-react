@@ -2,6 +2,7 @@ import Canvas from "./Canvas.jsx";
 import PropTypes from "prop-types";
 import {useContext, useState} from "react";
 import {AppContext} from "./App.jsx";
+import './Tab.css';
 
 export default function Tab(props) {
    const appState = useContext(AppContext);
