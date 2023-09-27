@@ -10,7 +10,7 @@ const uniqueId = () => parseInt(Date.now() * Math.random()).toString();
 const initialTabs = [
     { tabKey: uniqueId(), tabName: "Hello" },
     { tabKey: uniqueId(), tabName: "Yellow" },
-]
+];
 
 export default function TabPanel(props) {
    const appState = useContext(AppContext);
@@ -27,34 +27,46 @@ export default function TabPanel(props) {
          className="add-tab-button"
          type="button"
          onClick={() => {
-             setTabs([...tabs, { tabKey: uniqueId(), tabName: "untitled" }])
+             const tabId = uniqueId();
+             setTabs([...tabs, { tabKey: tabId, tabName: "untitled" }]);
+             setActiveTab(tabId);
          }}
       >
          &#xFF0B;
       </button>
    );
 
+    const tabComponents = (
+        tabs.map(tab => {
+            return (
+                <Tab tabName={tab.tabName}
+                     tabKey={tab.tabKey}
+                     hidden={activeTab !== tab.tabKey}
+                     drawingColor={props.drawingColor}
+                />)
+        })
+    );
+
+    const paneHeader = (
+        tabs.map((tab) => {
+            return <TabButton tabName={tab.tabName}
+                              tabKey={tab.tabKey}
+                              setActiveTab={setActiveTab}
+                              isActive={activeTab === tab.tabKey}
+                              onClose={(arg) => {
+                                  deleteTab(arg);
+                                  setActiveTab(tabs[tabs.length - 1].tabKey);
+                              }}/>
+        })
+    );
+
    return (
       <div className="tab-panel">
          <div className="pane-header">
-            {
-                tabs.map((tab) => {
-                return <TabButton tabName={tab.tabName}
-                                  tabKey={tab.tabKey}
-                                  setActiveTab={setActiveTab}
-                                  onClose={deleteTab}/>
-            })}
+            {paneHeader}
             {newTabButton}
          </div>
-         {
-             tabs.map(tab => {
-             return (
-                 <Tab tabName={tab.tabName}
-                          tabKey={tab.tabKey}
-                          hidden={activeTab !== tab.tabKey}
-                      drawingColor={props.drawingColor}
-                 />)
-         })}
+         {tabComponents}
       </div>
    );
 }

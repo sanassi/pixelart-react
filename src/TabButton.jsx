@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import './TabButton.css';
 
-export default function TabButton({ tabKey, tabName, setActiveTab, onClose }) {
+export default function TabButton({ tabKey, tabName, setActiveTab, isActive, onClose }) {
    return (
       <div className="tab-button">
          <button
             type="button"
-            key={`${tabName}-button`}
+            style={{borderColor : isActive ? '#535bf2' : '#00000000' }}
+            key={`${tabKey}-button`}
             onClick={() => {
                setActiveTab(tabKey);
             }}
@@ -15,7 +16,6 @@ export default function TabButton({ tabKey, tabName, setActiveTab, onClose }) {
          </button>
          <button className="tab-close-button" type="button" onClick={() => {
              onClose(tabKey);
-             console.log(tabName);
          }}>
             &times;
          </button>
