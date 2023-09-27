@@ -42,7 +42,8 @@ export default function TabPanel(props) {
     const tabComponents = (
         tabs.map(tab => {
             return (
-                <Tab key={`${tab.tabKey}-tab`} tabName={tab.tabName}
+                <Tab key={`${tab.tabKey}-tab`}
+                     tabName={tab.tabName}
                      tabKey={tab.tabKey}
                      hidden={activeTab !== tab.tabKey}
                      drawingColor={props.drawingColor}
@@ -52,7 +53,8 @@ export default function TabPanel(props) {
 
     const paneHeader = (
         tabs.map((tab) => {
-            return <TabButton key={`${tab.tabKey}-tab-button`} tabName={tab.tabName}
+            return <TabButton key={`${tab.tabKey}-tab-button`}
+                              tabName={tab.tabName}
                               tabKey={tab.tabKey}
                               setActiveTab={setActiveTab}
                               isActive={activeTab === tab.tabKey}
