@@ -1,6 +1,6 @@
 import Tab from "./Tab.jsx";
 import './TabPanel.css';
-import {useContext, useId, useState} from "react";
+import {useContext, useState} from "react";
 import TabButton from "./TabButton.jsx";
 import {AppContext} from "./App.jsx";
 import PropTypes from "prop-types";
@@ -18,6 +18,8 @@ export default function TabPanel(props) {
    const [activeTab, setActiveTab] = useState(initialTabs[0].tabKey);
    const [tabs, setTabs] = useState(initialTabs);
 
+   const [untitledCount, setUntitledCount] = useState(0);
+
     const deleteTab = (tabId) => {
         setTabs(tabs.filter(t => t.tabKey !== tabId));
     }
@@ -28,7 +30,8 @@ export default function TabPanel(props) {
          type="button"
          onClick={() => {
              const tabId = uniqueId();
-             setTabs([...tabs, { tabKey: tabId, tabName: "untitled" }]);
+             setTabs([...tabs, { tabKey: tabId, tabName: `untitled (${untitledCount})` }]);
+             setUntitledCount(untitledCount + 1);
              setActiveTab(tabId);
          }}
       >
@@ -39,7 +42,7 @@ export default function TabPanel(props) {
     const tabComponents = (
         tabs.map(tab => {
             return (
-                <Tab tabName={tab.tabName}
+                <Tab key={`${tab.tabKey}-tab`} tabName={tab.tabName}
                      tabKey={tab.tabKey}
                      hidden={activeTab !== tab.tabKey}
                      drawingColor={props.drawingColor}
@@ -49,7 +52,7 @@ export default function TabPanel(props) {
 
     const paneHeader = (
         tabs.map((tab) => {
-            return <TabButton tabName={tab.tabName}
+            return <TabButton key={`${tab.tabKey}-tab-button`} tabName={tab.tabName}
                               tabKey={tab.tabKey}
                               setActiveTab={setActiveTab}
                               isActive={activeTab === tab.tabKey}
