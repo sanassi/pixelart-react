@@ -21,7 +21,15 @@ export default function TabPanel(props) {
    const [untitledCount, setUntitledCount] = useState(0);
 
     const deleteTab = (tabId) => {
+        const index = tabs.findIndex(t => t.tabKey === tabId);
         setTabs(tabs.filter(t => t.tabKey !== tabId));
+
+        if (tabs.length > 1 && index > 0) {
+            setActiveTab(tabs[index - 1].tabKey);
+        }
+        else if (index < tabs.length - 1) {
+            setActiveTab(tabs[index + 1].tabKey);
+        }
     }
 
    const newTabButton = (
@@ -58,10 +66,7 @@ export default function TabPanel(props) {
                               tabKey={tab.tabKey}
                               setActiveTab={setActiveTab}
                               isActive={activeTab === tab.tabKey}
-                              onClose={(arg) => {
-                                  deleteTab(arg);
-                                  setActiveTab(tabs[tabs.length - 1].tabKey);
-                              }}/>
+                              onClose={deleteTab}/>
         })
     );
 
