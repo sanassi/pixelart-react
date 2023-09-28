@@ -25,6 +25,8 @@ function App() {
       nbCellHeight: nbCellHeight,
       cellWidth: 20,
       grid: [],
+      tabs: {},
+      activeTabId: '',
    };
 
    const [color, setColor] = useColorState(appState.penColor);

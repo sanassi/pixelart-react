@@ -8,8 +8,12 @@ export default function Tools() {
    const appState = useContext(AppContext);
 
    const clearCanvas = () => {
-      appState.grid.fill(appState.transparentColor);
-      const ctx = appState.canvasRef.current.getContext('2d');
+
+       if (Object.keys(appState.tabs).length === 0)
+           return;
+
+       appState.tabs[appState.activeTabId].grid.fill(appState.transparentColor);
+      const ctx = appState.tabs[appState.activeTabId].canvasRef.current.getContext('2d');
 
       let prevFill = ctx.fillStyle;
       ctx.fillStyle = appState.backgroundColor;

@@ -1,21 +1,20 @@
 import Canvas from "./Canvas.jsx";
 import PropTypes from "prop-types";
-import {useContext, useState} from "react";
+import {useContext, useRef, useState} from "react";
 import {AppContext} from "./App.jsx";
 import './Tab.css';
 
-export default function Tab({ drawingColor, hidden, tabKey }) {
+export default function Tab({ grid, drawingColor, hidden, tabKey }) {
    const appState = useContext(AppContext);
 
-   const [grid] = useState((Array(appState.nbCellHeight * appState.nbCellWidth)
-      .fill('#ffffff00')));
+   appState.tabs[tabKey].canvasRef = useRef(null);
 
    return (
       <div key={tabKey}
            className="tab"
            hidden={hidden}>
          <Canvas drawingColor={drawingColor}
-                 grid={grid}/>
+                 grid={grid} canvasRef={appState.tabs[tabKey].canvasRef}/>
       </div>
    );
 }

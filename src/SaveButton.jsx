@@ -12,6 +12,9 @@ export default function SaveButton() {
    const cellWidth = appState.cellWidth;
 
    const onSave = () => {
+      if (Object.keys(appState.tabs).length === 0)
+         return;
+
       let newCanvas = document.createElement('canvas');
       newCanvas.width = canvasWidth;
       newCanvas.height = canvasHeight;
@@ -22,7 +25,7 @@ export default function SaveButton() {
          for (let j = 0; j < appState.nbCellWidth; j++) {
             let prevCtxFill = newCtx.fillStyle;
 
-            newCtx.fillStyle = appState.grid[i * appState.nbCellWidth + j];
+            newCtx.fillStyle = appState.tabs[appState.activeTabId].grid[i * appState.nbCellWidth + j];
 
             let region = new Path2D();
             region.rect(j * cellWidth, i * cellWidth, cellWidth, cellWidth);
