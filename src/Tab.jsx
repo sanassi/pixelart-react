@@ -1,6 +1,6 @@
 import Canvas from "./Canvas.jsx";
 import PropTypes from "prop-types";
-import {useContext, useRef, useState} from "react";
+import {useContext, useRef} from "react";
 import {AppContext} from "./App.jsx";
 import './Tab.css';
 
@@ -20,6 +20,7 @@ export default function Tab({ grid, drawingColor, hidden, tabKey }) {
 }
 
 Tab.propTypes = {
+   grid: PropTypes.array,
    tabKey: PropTypes.string,
    tabName: PropTypes.string,
    hidden: PropTypes.bool,
