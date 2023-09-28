@@ -14,7 +14,6 @@ function App() {
    let nbCellHeight = 40;
 
    const appState = {
-      canvasRef: null,
       penWidth: 1,
       penColor: '#5fee0c',
       mode: 'pen',
@@ -24,16 +23,12 @@ function App() {
       nbCellWidth: nbCellWidth,
       nbCellHeight: nbCellHeight,
       cellWidth: 20,
-      grid: [],
       tabs: {},
       activeTabId: '',
    };
 
    const [color, setColor] = useColorState(appState.penColor);
    const [history, setHistory] = useState([]);
-   const [grid] = useState((Array(nbCellHeight * nbCellWidth).fill('#ffffff00')));
-
-   appState.grid = grid;
 
    return (
       <AppContext.Provider value={appState}>

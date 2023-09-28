@@ -14,7 +14,7 @@ function initGrid(w, h, initColor) {
 function initTabs(w, h, initColor) {
     return {
         "tab1": { tabKey: "tab1", tabName: "Hello", grid: initGrid(w, h, initColor), canvasRef: null },
-        "tab2": { tabKey: "tab2", tabName: "Yellow", grid: initGrid(w, h, initColor), canvasRef: null},
+        "tab2": { tabKey: "tab2", tabName: "Yellow", grid: initGrid(w, h, initColor), canvasRef: null },
     };
 }
 
