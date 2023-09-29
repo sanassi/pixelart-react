@@ -36,7 +36,7 @@ export default function SaveButton() {
          }
       }
 
-      saveAs(newCanvas.toDataURL(), prompt("Enter file name"));
+      saveAs(newCanvas.toDataURL(), appState.tabs[appState.activeTabId].tabName);
    }
 
    return (

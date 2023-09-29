@@ -15,7 +15,7 @@ function App() {
 
    const appState = {
       penWidth: 1,
-      penColor: '#5fee0c',
+      penColor: '#0c6eee',
       mode: 'pen',
       drawing: false,
       backgroundColor: '#242424',
@@ -28,7 +28,7 @@ function App() {
    };
 
    const [color, setColor] = useColorState(appState.penColor);
-   const [history, setHistory] = useState([]);
+   const [history, setHistory] = useState(['#ff09cc', '#e80c44', '#969696']);
 
    return (
       <AppContext.Provider value={appState}>

@@ -24,7 +24,7 @@ export default function TabPanel(props) {
     const [tabs, setTabs] =
         useState(initTabs(appState.nbCellWidth, appState.nbCellHeight, appState.transparentColor));
     appState.tabs = tabs;
-    const [activeTab, setActiveTab] = useState("tab1"); // Set an initial active tab
+    const [activeTab, setActiveTab] = useState("tab1");
 
     appState.activeTabId = activeTab;
 
