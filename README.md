@@ -1,9 +1,17 @@
-# React + Vite
+# Pixel Art Editor (built with ReactJS)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is editor has tabs so you can have multiple drawings open at the same time.
+It's just another project to get more skills with React.
 
-Currently, two official plugins are available:
+## Build
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-# pixelart-react
+``bash
+npm install
+npm run build
+``
+
+## Preview
+
+``bash
+npm run preview
+``
