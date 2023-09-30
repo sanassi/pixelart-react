@@ -3,19 +3,14 @@ import PropTypes from "prop-types";
 import {useContext, useRef} from "react";
 import {AppContext} from "./App.jsx";
 
-export default function Canvas(props) {
-
+export default function Canvas({ drawingColor, grid, canvasRef }) {
    const appState = useContext(AppContext);
 
-   const canvasRef = useRef(null);
-
-   appState.canvasRef = canvasRef;
    const [coords, handleCoords] = useMousePosition(true);
    const canvasWidth = appState.nbCellWidth * appState.cellWidth;
    const canvasHeight = appState.nbCellHeight * appState.cellWidth;
 
    const cellWidth = appState.cellWidth;
-   const drawingColor = props.drawingColor;
 
    function drawCell(x, y) {
       if (!canvasRef.current)
@@ -35,8 +30,6 @@ export default function Canvas(props) {
 
       let x = Math.floor(coords.x / cellWidth);
       let y = Math.floor(coords.y / cellWidth);
-
-      let grid = appState.grid;
 
       const toReplace = grid[y * appState.nbCellWidth + x];
 
@@ -87,7 +80,7 @@ export default function Canvas(props) {
             if (x + i >= 0 && x + i < appState.nbCellWidth
                && y + j >= 0 && y + j < appState.nbCellWidth)
             {
-               appState.grid[(y + j) * appState.nbCellWidth + (x + i)] = color;
+               grid[(y + j) * appState.nbCellWidth + (x + i)] = color;
 
                let drawX = (x + i) * cellWidth;
                let drawY = (y + j) * cellWidth;
@@ -122,21 +115,11 @@ export default function Canvas(props) {
       let gridY = Math.floor(coords.y / cellWidth);
 
       drawOnGridAndBoard(gridX, gridY, gridColor);
-
-      /*
-      appState.grid[gridY * appState.nbCellWidth + gridX] = gridColor;
-
-      let drawX = gridX * cellWidth;
-      let drawY = gridY * cellWidth;
-
-      ctx?.fillRect(drawX, drawY, cellWidth, cellWidth);
-
-       */
    }
 
    return (
       <>
-         <div>
+         <div id='drawing-area'>
             <canvas
                id='ui-layer'
                ref={canvasRef}
@@ -173,5 +156,6 @@ export default function Canvas(props) {
 }
 
 Canvas.propTypes = {
-   drawingColor: PropTypes.string
+   drawingColor: PropTypes.string,
+   grid: PropTypes.array,
 }
