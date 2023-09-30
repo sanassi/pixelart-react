@@ -5,13 +5,13 @@ It's just another project to get more skills with React.
 
 ## Build
 
-``bash
+```bash
 npm install
 npm run build
-``
+```
 
 ## Preview
 
-``bash
+```bash
 npm run preview
-``
+```
