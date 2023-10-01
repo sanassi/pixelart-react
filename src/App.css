@@ -6,7 +6,7 @@
 }
 
 canvas {
-    border: dimgrey 2px solid;
+    border: var(--canvas-border-color) 2px solid;
 }
 
 .app-top {

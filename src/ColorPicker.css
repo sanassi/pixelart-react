@@ -36,5 +36,5 @@ input[type='color'] {
 }
 
 .color-picker button:hover {
-    border-color: #646cff;
+    border-color: var(--button-hover-color);
 }

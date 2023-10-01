@@ -5,5 +5,5 @@
 }
 
 .tools button:hover {
-    border-color: #646cff;
+    border-color: var(--button-hover-color);
 }

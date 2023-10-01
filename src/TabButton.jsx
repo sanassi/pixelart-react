@@ -15,14 +15,15 @@ export default function TabButton({ tabKey, tabName, setActiveTab, isActive, onC
       <div className="tab-button">
          <button
             type="button"
-            style={{borderColor : isActive ? '#535bf2' : '#00000000' }}
+            style={{borderColor: isActive?
+                        `var(--button-hover-color)`:
+                        `var(--app-transparent-color)` }}
             key={`${tabKey}-button`}
             onClick={() => {
                setActiveTab(tabKey);
             }}
          >
             <EditableLabel initValue={tabName} isLabelInit={true} updateValue={updateTabName} />
-            {/*<span className="tab-button-name">{tabName}</span>*/}
          </button>
          <button className="tab-close-button" type="button" onClick={() => {
              onClose(tabKey);
