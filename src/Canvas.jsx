@@ -1,6 +1,6 @@
 import useMousePosition from "./UseMousePosition.jsx";
 import PropTypes from "prop-types";
-import {useContext, useRef} from "react";
+import {useContext, useRef, useState} from "react";
 import {AppContext} from "./App.jsx";
 
 export default function Canvas({ drawingColor, grid, canvasRef }) {
@@ -10,7 +10,17 @@ export default function Canvas({ drawingColor, grid, canvasRef }) {
    const canvasWidth = appState.nbCellWidth * appState.cellWidth;
    const canvasHeight = appState.nbCellHeight * appState.cellWidth;
 
+   const [strokes, setStrokes] = useState([]);
+
    const cellWidth = appState.cellWidth;
+
+   function convertCoords(x, y) {
+      return [Math.floor(x / cellWidth), Math.floor(y / cellWidth)];
+   }
+
+   function convertCoordsNotation(x, y) {
+      return y * appState.nbCellWidth + x;
+   }
 
    function drawCell(x, y) {
       if (!canvasRef.current)
@@ -129,7 +139,14 @@ export default function Canvas({ drawingColor, grid, canvasRef }) {
                   switch (appState.mode) {
                      case 'pen':
                      case 'eraser':
-                        appState.drawing = true;
+                        if (!appState.drawing) {
+                           const [gridX, gridY] = convertCoords(coords.x, coords.y);
+
+                           let point = { x: gridX, y: gridY, prevColor: grid[convertCoordsNotation(gridX, gridY)] };
+
+                           appState.drawing = true;
+                           setStrokes([...strokes, [point]]);
+                        }
                         draw(event);
                         break;
                      case 'bucket':
@@ -139,6 +156,19 @@ export default function Canvas({ drawingColor, grid, canvasRef }) {
                }}
                onMouseMove={(event) => {
                   if (appState.drawing) {
+                     if (strokes.length !== 0) {
+                        let currentStroke = strokes[strokes.length - 1];
+
+                        const [gridX, gridY] = convertCoords(coords.x, coords.y);
+
+                        let point = { x: gridX, y: gridY, prevColor: grid[convertCoordsNotation(gridX, gridY)] };
+
+                        if (!currentStroke.some(p => p.x === point.x && p.y === point.y)) {
+                           currentStroke.push(point);
+                           setStrokes(strokes.filter(s => s !== currentStroke));
+                           setStrokes([...strokes, currentStroke]);
+                        }
+                     }
                      draw(event);
                   }
                }}
@@ -147,6 +177,9 @@ export default function Canvas({ drawingColor, grid, canvasRef }) {
                      if (appState.mode !== 'bucket')
                         draw(event);
                      appState.drawing = false;
+                     if (strokes.length !== 0) {
+                        console.log(strokes[strokes.length - 1]);
+                     }
                   }
                }}
             />
