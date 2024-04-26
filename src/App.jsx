@@ -13,7 +13,7 @@ function App() {
    let nbCellWidth = 40;
    let nbCellHeight = 40;
 
-   const appState = {
+   let appState = {
       penWidth: 1,
       penColor: '#0c6eee',
       mode: 'pen',

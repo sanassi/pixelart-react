@@ -1,16 +1,14 @@
 import useMousePosition from "./UseMousePosition.jsx";
 import PropTypes from "prop-types";
-import {useContext, useRef, useState} from "react";
+import {useContext} from "react";
 import {AppContext} from "./App.jsx";
 
-export default function Canvas({ drawingColor, grid, canvasRef }) {
+export default function Canvas({ drawingColor, grid, canvasRef, strokes, setStrokes }) {
    const appState = useContext(AppContext);
 
    const [coords, handleCoords] = useMousePosition(true);
    const canvasWidth = appState.nbCellWidth * appState.cellWidth;
    const canvasHeight = appState.nbCellHeight * appState.cellWidth;
-
-   const [strokes, setStrokes] = useState([]);
 
    const cellWidth = appState.cellWidth;
 
@@ -53,6 +51,8 @@ export default function Canvas({ drawingColor, grid, canvasRef }) {
       while (q.length !== 0) {
          let pop = q.shift();
          drawCell(pop.x * cellWidth, pop.y * cellWidth);
+
+         setStrokes([...strokes, pop]);
 
          const directions = [
             { dx: -1, dy: 0 },
@@ -164,9 +164,16 @@ export default function Canvas({ drawingColor, grid, canvasRef }) {
                         let point = { x: gridX, y: gridY, prevColor: grid[convertCoordsNotation(gridX, gridY)] };
 
                         if (!currentStroke.some(p => p.x === point.x && p.y === point.y)) {
+                           /*
                            currentStroke.push(point);
                            setStrokes(strokes.filter(s => s !== currentStroke));
                            setStrokes([...strokes, currentStroke]);
+                            */
+                           const newArray = [...strokes];
+                           currentStroke.push(point);
+                           newArray[newArray.length - 1] = currentStroke;
+
+                           setStrokes(newArray);
                         }
                      }
                      draw(event);
@@ -177,9 +184,6 @@ export default function Canvas({ drawingColor, grid, canvasRef }) {
                      if (appState.mode !== 'bucket')
                         draw(event);
                      appState.drawing = false;
-                     if (strokes.length !== 0) {
-                        console.log(strokes[strokes.length - 1]);
-                     }
                   }
                }}
             />
@@ -191,4 +195,6 @@ export default function Canvas({ drawingColor, grid, canvasRef }) {
 Canvas.propTypes = {
    drawingColor: PropTypes.string,
    grid: PropTypes.array,
+   strokes: PropTypes.array,
+   setStrokes: PropTypes.func,
 }

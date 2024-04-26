@@ -13,8 +13,8 @@ function initGrid(w, h, initColor) {
 
 function initTabs(w, h, initColor) {
     return {
-        "tab1": { tabKey: "tab1", tabName: "Hello", grid: initGrid(w, h, initColor), canvasRef: null },
-        "tab2": { tabKey: "tab2", tabName: "Yellow", grid: initGrid(w, h, initColor), canvasRef: null },
+        "tab1": { tabKey: "tab1", tabName: "Hello", grid: initGrid(w, h, initColor), canvasRef: null, strokes: []},
+        "tab2": { tabKey: "tab2", tabName: "Yellow", grid: initGrid(w, h, initColor), canvasRef: null, strokes: [] },
     };
 }
 
@@ -53,7 +53,8 @@ export default function TabPanel(props) {
                         tabKey: tabId,
                         tabName: `untitled (${untitledCount})`,
                         grid: initGrid(appState.nbCellWidth, appState.nbCellHeight, appState.transparentColor),
-                        canvasRef: null
+                        canvasRef: null,
+                        strokes: []
                     }
                 });
                 setUntitledCount(untitledCount + 1);
